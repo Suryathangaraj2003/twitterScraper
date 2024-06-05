@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Trends</title>
+    <script>
+        async function fetchTrends() {
+            const response = await fetch('/fetch-trends');
+            if (response.ok) {
+                loadTrends();
+            } else {
+                console.error('Error fetching trends');
+            }
+        }
+
+        async function loadTrends() {
+            const response = await fetch('/trends');
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('trend1').innerText = data.trend1;
+                document.getElementById('trend2').innerText = data.trend2;
+                document.getElementById('trend3').innerText = data.trend3;
+                document.getElementById('trend4').innerText = data.trend4;
+                document.getElementById('trend5').innerText = data.trend5;
+            } else {
+                console.error('Error loading trends');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadTrends();
+        });
+    </script>
+</head>
+<body>
+    <h1>Twitter Trending Topics</h1>
+    <button onclick="fetchTrends()">Fetch Trends</button>
+    <ul>
+        <li id="trend1"></li>
+        <li id="trend2"></li>
+        <li id="trend3"></li>
+        <li id="trend4"></li>
+        <li id="trend5"></li>
+    </ul>
+</body>
+</html>
